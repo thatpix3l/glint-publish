@@ -17,11 +17,11 @@ jobs:
           node-version: "20"
 
       - name: Build frontend
-        working-directory: ./frontend
+        working-directory: api
         run: npm i && npm run build
 
       - name: Build backend
-        working-directory: ./backend
+        working-directory: web
         run: npm i
         
       - name: Set up Docker Buildx
