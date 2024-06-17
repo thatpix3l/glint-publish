@@ -2,7 +2,7 @@ FROM docker.io/node:alpine
 
 COPY api /app
 
-COPY ./web/build /app/public
+COPY web/build/ /app/public/
 
 WORKDIR /app
 
