@@ -20,4 +20,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: vectorsquad/glint:latest
+          tags: ghcr.io/vectorsquad/glint:latest
