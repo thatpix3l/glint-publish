@@ -9,9 +9,9 @@ RUN npm run build
 
 FROM docker.io/node:alpine as api
 
-WORKDIR /app
+WORKDIR /repo
 
-COPY api/ /repo/
+COPY api/ .
 COPY --from=web /repo/build/ public/
 
 RUN npm i
