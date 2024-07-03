@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: glint
+spec:
+  containers:
+  - image: ghcr.io/vectorsquad/glint:latest
+    name: api
+    ports:
+    - containerPort: 8080
+      hostPort: 8080
+  - image: docker.io/mongo:7.0
+    name: db
+    volumeMounts:
+    - mountPath: /data/db
+      name: glint-db-data
+  volumes:
+  - name: glint-db-data
+    persistentVolumeClaim:
+      claimName: glint-db-data
