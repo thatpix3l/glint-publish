@@ -30,7 +30,7 @@ jobs:
           key: ${{ secrets.PROD_SSH_KEY }}
           script: |
             repo_exists() {
-              test -d ${{ github.repository }}
+              test -d ${{ github.event.repository.name }}
             }
             
             cd_repo() {
