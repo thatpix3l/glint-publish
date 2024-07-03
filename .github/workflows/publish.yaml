@@ -28,10 +28,8 @@ jobs:
           host: ${{ secrets.PROD_HOST }}
           username: ${{ secrets.PROD_USERNAME }}
           key: ${{ secrets.PROD_SSH_KEY }}
-          env:
-            REMOTE_URL: https://github.com/${{ github.repository_owner }}/${{ github.repository }}.git
           script: |
-            test -d ${{ github.repository }} || git clone "$REMOTE_URL"
+            test -d ${{ github.repository }} || git clone "https://github.com/${{ github.repository_owner }}/${{ github.repository }}.git"
             cd ${{ github.repository }}
             git pull
             sh ./ensure.sh
