@@ -29,9 +29,29 @@ jobs:
           username: ${{ secrets.PROD_USERNAME }}
           key: ${{ secrets.PROD_SSH_KEY }}
           script: |
-            test -d ${{ github.repository }} || git clone "https://github.com/${{ github.repository }}.git"
-            cd ${{ github.event.repository.name }}
-            git pull
+            repo_exists() {
+              test -d ${{ github.repository }}
+            }
+            
+            cd_repo() {
+              cd ${{ github.event.repository.name }}
+            }
+
+            update_repo() {
+              repo_exists &&
+              echo "Updating repo..." &&
+              cd_repo &&
+              git pull
+            }
+            
+            clone_repo() {
+              ! repo_exists &&
+              echo "Cloning repo..." &&
+              git clone "https://github.com/${{ github.repository }}.git" &&
+              cd_repo
+            }
+            
+            update_repo || clone_repo
 
             echo "Tearing down containers..."
             podman kube down ./kube.yml
