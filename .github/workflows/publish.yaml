@@ -21,3 +21,23 @@ jobs:
         with:
           push: true
           tags: ghcr.io/vectorsquad/glint:latest
+
+      - name: Ensure Production Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USERNAME }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          env:
+            REMOTE_URL: https://github.com/${{ github.repository_owner }}/${{ github.repository }}.git
+          script: |
+            test -d ${{ github.repository }} || git clone "$REMOTE_URL"
+            cd ${{ github.repository }}
+            git pull
+            sh ./ensure.sh
+
+            echo "Tearing down containers..."
+            podman kube down ./kube.yml
+            
+            echo "Playing containers..."
+            podman kube play ./kube.yml 
