@@ -32,7 +32,6 @@ jobs:
             test -d ${{ github.repository }} || git clone "https://github.com/${{ github.repository }}.git"
             cd ${{ github.event.repository.name }}
             git pull
-            sh ./ensure.sh
 
             echo "Tearing down containers..."
             podman kube down ./kube.yml
