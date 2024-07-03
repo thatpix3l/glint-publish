@@ -29,8 +29,8 @@ jobs:
           username: ${{ secrets.PROD_USERNAME }}
           key: ${{ secrets.PROD_SSH_KEY }}
           script: |
-            test -d ${{ github.repository }} || git clone "https://github.com/${{ github.repository_owner }}/${{ github.repository }}.git"
-            cd ${{ github.repository }}
+            test -d ${{ github.repository }} || git clone "https://github.com/${{ github.repository }}.git"
+            cd ${{ github.event.repository.name }}
             git pull
             sh ./ensure.sh
 
