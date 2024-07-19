@@ -1,20 +1,29 @@
-FROM docker.io/node:alpine as web
+# Web preparation
+FROM docker.io/node:alpine AS web
 
 WORKDIR /repo
 
 COPY web/ .
 
-RUN npm i
+RUN npm ci
 RUN npm run build
 
-FROM docker.io/node:alpine as api
+# API preparation
+FROM docker.io/node:alpine AS api
 
 WORKDIR /repo
 
 COPY api/ .
-COPY --from=web /repo/build/ public/
 
-RUN npm i
+RUN npm ci
+
+# Assembly of all components
+FROM docker.io/node:alpine AS assembled
+
+WORKDIR /app
+
+COPY --from=api /repo . 
+COPY --from=web /repo/build/ public/
 
 EXPOSE 8080:8080
 
