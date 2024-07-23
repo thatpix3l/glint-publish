@@ -17,6 +17,8 @@ COPY api/ .
 
 RUN npm ci
 
+RUN npm lint
+
 # Assembly of all components
 FROM docker.io/node:alpine AS assembled
 
