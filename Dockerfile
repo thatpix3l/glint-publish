@@ -27,6 +27,4 @@ WORKDIR /app
 COPY --from=api /repo . 
 COPY --from=web /repo/build/ public/
 
-EXPOSE 8080:8080
-
 CMD ["npm", "run", "start"]
