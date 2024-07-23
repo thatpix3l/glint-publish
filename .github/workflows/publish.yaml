@@ -29,6 +29,10 @@ jobs:
           username: ${{ secrets.PROD_USERNAME }}
           key: ${{ secrets.PROD_SSH_KEY }}
           script: |
+            prune_images() {
+              podman image prune -f
+            }
+
             repo_exists() {
               test -d ${{ github.event.repository.name }}
             }
@@ -55,6 +59,9 @@ jobs:
 
             echo "Tearing down containers..."
             podman kube down ./kube.yml
+            
+            echo "Pruning old images..."
+            prune_images
             
             echo "Playing containers..."
             podman kube play ./kube.yml 
