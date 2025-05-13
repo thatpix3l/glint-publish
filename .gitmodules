@@ -1,6 +1,6 @@
 [submodule "api"]
-	path = api
+	path = modules/api
 	url = https://github.com/vectorsquad/glint-api
 [submodule "web"]
-	path = web
+	path = modules/web
 	url = https://github.com/vectorsquad/glint-web

@@ -4,7 +4,7 @@ metadata:
   name: glint
 spec:
   containers:
-  - image: ghcr.io/vectorsquad/glint:latest
+  - image: glint:latest
     name: api
     ports:
     - containerPort: 8080
