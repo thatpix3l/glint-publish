@@ -24,14 +24,3 @@ jobs:
       - name: Build and Publish OCI Image
         run: earthly --ci --push +image-push
       
-  # ensure-production:
-  #   runs-on: ubuntu-latest
-  #   needs: [publish-image]
-  #   steps:
-  #     - name: Ensure Production Server
-  #       uses: appleboy/ssh-action@v1.0.3
-  #       with:
-  #         host: ${{ secrets.PROD_HOST }}
-  #         username: ${{ secrets.PROD_USERNAME }}
-  #         key: ${{ secrets.PROD_SSH_KEY }}
-  #         script_path: scripts/ensure.sh
